@@ -1,0 +1,11 @@
+{
+  "name": "api.bastionbot.org",
+  "version": "1.0.0",
+  "description": "The Bastion Bot API",
+  "homepage": "https://api.bastionbot.org",
+  "main": "./scripts/start",
+  "repository": "https://github.com/TheBastionBot/api.bastionbot.org.git",
+  "author": "Sankarsan Kampa",
+  "license": "GPL-3.0",
+  "private": true
+}
