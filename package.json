@@ -7,5 +7,8 @@
   "repository": "https://github.com/TheBastionBot/api.bastionbot.org.git",
   "author": "Sankarsan Kampa",
   "license": "GPL-3.0",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "typescript": "^3.1.1"
+  }
 }
