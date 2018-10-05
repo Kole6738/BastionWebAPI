@@ -6,6 +6,7 @@ import * as logger from "morgan";
 import * as dotenv from "dotenv";
 
 import * as IndexRoute from "./routes/v1";
+import * as TwitterRouter from "./routes/v1/twitter";
 
 /**
  * The server.
@@ -78,9 +79,12 @@ class Server {
 
     // Create routes
     const Index: IndexRoute.Index = new IndexRoute.Index();
+    const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
 
     // Routes
     router.get("/", Index.main.bind(Index.main));
+    router.get("/twitter", Twitter.main.bind(Twitter.main));
+    router.get("/twitter/followers", Twitter.followers.bind(Twitter.followers));
 
     // Use router middleware
     this.app.use(router);
