@@ -82,9 +82,9 @@ class Server {
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
 
     // Routes
-    router.get("/", Index.main.bind(Index.main));
-    router.get("/twitter", Twitter.main.bind(Twitter.main));
-    router.get("/twitter/followers", Twitter.followers.bind(Twitter.followers));
+    router.get("/", Index.main.bind(Index));
+    router.get("/twitter", Twitter.main.bind(Twitter));
+    router.get("/twitter/followers", Twitter.followers.bind(Twitter));
 
     // Use router middleware
     this.app.use(router);
