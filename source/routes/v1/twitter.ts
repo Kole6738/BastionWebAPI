@@ -59,6 +59,7 @@ module Route {
   export class Twitter {
     private account: string = 'TheBastionBot';
     private redisPrefix: string = 'twitter';
+    private baseURL: string = 'https://api.twitter.com/1.1';
 
     public async main(_req: express.Request, res: express.Response, next: express.NextFunction) {
       let redisKey: string = `${this.redisPrefix}:${this.account}`;
@@ -70,14 +71,13 @@ module Route {
             res.json(JSON.parse(info));
           }
           else {
-            let url: string = 'https://api.twitter.com/1.1/users/show.json';
+            let url: string = this.baseURL + '/users/show.json';
             let options: request.RequestPromiseOptions = {
               headers: {
-                'Accept': 'application/json',
                 'Authorization': `Bearer ${process.env.TWITTER_BEARER_TOKEN}`
               },
               qs: {
-                screen_name: 'TheBastionBot',
+                screen_name: this.account,
                 include_user_entities: true
               },
               json: true
@@ -121,14 +121,13 @@ module Route {
             res.json(JSON.parse(followers));
           }
           else {
-            let url: string = 'https://api.twitter.com/1.1/followers/list.json';
+            let url: string = this.baseURL + '/followers/list.json';
             let options: request.RequestPromiseOptions = {
               headers: {
-                'Accept': 'application/json',
                 'Authorization': `Bearer ${process.env.TWITTER_BEARER_TOKEN}`
               },
               qs: {
-                screen_name: 'TheBastionBot',
+                screen_name: this.account,
                 cursor: -1,
                 count: 200,
                 skip_status: true,
