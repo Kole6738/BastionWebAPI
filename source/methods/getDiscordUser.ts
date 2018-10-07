@@ -26,6 +26,20 @@ export default (userID: string): Promise<DiscordUser> => {
 
           let response: DiscordUser = await request(url, options);
 
+          Object.defineProperties(response, {
+            tag: {
+              value: response.username + "#" + response.discriminator,
+            },
+            avatar: {
+              value: response.avatar
+                ? "https://cdn.discordapp.com/avatars/"
+                  + response.id + "/" + response.avatar
+                  + "." + (response.avatar.startsWith("a_") ? "gif" : "png")
+                : "https://cdn.discordapp.com/embed/avatars/"
+                  + parseInt(response.discriminator) % 5 + ".png",
+            },
+          });
+
           redisClient.setex(redisKey, 86400, JSON.stringify(response));
 
           resolve(response);
