@@ -7,5 +7,6 @@ interface DiscordUser {
   readonly username: string,
   readonly discriminator: string,
   readonly id: string,
+  readonly tag: string,
   readonly avatar: string,
 }
