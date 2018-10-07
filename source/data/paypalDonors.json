@@ -1,0 +1,44 @@
+[
+  {
+    "donor_relationship_start": 1490572800000,
+    "last_donation_date": 1490572800000,
+    "lifetime_support_cents": 2500,
+    "discord_id": "287219754098229252"
+  },
+  {
+    "donor_relationship_start": 1491436800000,
+    "last_donation_date": 1499299200000,
+    "lifetime_support_cents": 3000,
+    "discord_id": "107496830173982720"
+  },
+  {
+    "donor_relationship_start": 1497398400000,
+    "last_donation_date": 1497398400000,
+    "lifetime_support_cents": 1500,
+    "discord_id": "204258421296463873"
+  },
+  {
+    "donor_relationship_start": 1507334400000,
+    "last_donation_date": 1507334400000,
+    "lifetime_support_cents": 1251,
+    "discord_id": "235097113510281216"
+  },
+  {
+    "donor_relationship_start": 1497916800000,
+    "last_donation_date": 1497916800000,
+    "lifetime_support_cents": 5000,
+    "discord_id": "232937307127152640"
+  },
+  {
+    "donor_relationship_start": 1519948800000,
+    "last_donation_date": 1527897600000,
+    "lifetime_support_cents": 900,
+    "discord_id": "336300820729692160"
+  },
+  {
+    "donor_relationship_start": 1537488000000,
+    "last_donation_date": 1537488000000,
+    "lifetime_support_cents": 500,
+    "discord_id": "291672665301975040"
+  }
+]
