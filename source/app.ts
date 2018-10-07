@@ -6,8 +6,9 @@ import * as logger from "morgan";
 import * as dotenv from "dotenv";
 
 import * as IndexRoute from "./routes/v1";
-import * as TwitterRouter from "./routes/v1/twitter";
 import * as PatreonRouter from "./routes/v1/patreon";
+import * as PayPalRouter from "./routes/v1/paypal";
+import * as TwitterRouter from "./routes/v1/twitter";
 
 /**
  * The server.
@@ -82,10 +83,12 @@ class Server {
     const Index: IndexRoute.Index = new IndexRoute.Index();
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
     const Patreon: PatreonRouter.Patreon = new PatreonRouter.Patreon();
+    const PayPal: PayPalRouter.PayPal = new PayPalRouter.PayPal();
 
     // Routes
     router.get("/", Index.main.bind(Index));
     router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
+    router.get("/paypal/donors", PayPal.donors.bind(PayPal));
     router.get("/twitter", Twitter.main.bind(Twitter));
     router.get("/twitter/followers", Twitter.followers.bind(Twitter));
 
