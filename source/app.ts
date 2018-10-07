@@ -7,6 +7,7 @@ import * as dotenv from "dotenv";
 
 import * as IndexRoute from "./routes/v1";
 import * as TwitterRouter from "./routes/v1/twitter";
+import * as PatreonRouter from "./routes/v1/patreon";
 
 /**
  * The server.
@@ -80,9 +81,11 @@ class Server {
     // Create routes
     const Index: IndexRoute.Index = new IndexRoute.Index();
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
+    const Patreon: PatreonRouter.Patreon = new PatreonRouter.Patreon();
 
     // Routes
     router.get("/", Index.main.bind(Index));
+    router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
     router.get("/twitter", Twitter.main.bind(Twitter));
     router.get("/twitter/followers", Twitter.followers.bind(Twitter));
 
