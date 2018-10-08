@@ -9,12 +9,22 @@ import redisClient from "../../redisClient";
 
 module Route {
   export class Twitter {
-    private account: string = 'TheBastionBot';
-    private redisPrefix: string = 'twitter';
-    private baseURL: string = 'https://api.twitter.com/1.1';
+    private account: string = "TheBastionBot";
+    private redisPrefix: string = "twitter";
+    private baseURL: string = "https://api.twitter.com/1.1";
+    private requestOptions: request.RequestPromiseOptions = {
+      headers: {
+        Authorization: "Bearer " + process.env.TWITTER_BEARER_TOKEN,
+      },
+      qs: {
+        screen_name: this.account,
+      },
+      json: true
+    };
 
     public async main(_req: express.Request, res: express.Response, next: express.NextFunction) {
-      let redisKey: string = `${this.redisPrefix}:${this.account}`;
+      let redisKey: string = this.redisPrefix + ":" + this.account;
+
       redisClient.get(redisKey, async (err, info) => {
         try {
           if (err) next(err);
@@ -23,17 +33,9 @@ module Route {
             res.json(JSON.parse(info));
           }
           else {
-            let url: string = this.baseURL + '/users/show.json';
-            let options: request.RequestPromiseOptions = {
-              headers: {
-                'Authorization': `Bearer ${process.env.TWITTER_BEARER_TOKEN}`
-              },
-              qs: {
-                screen_name: this.account,
-                include_user_entities: true
-              },
-              json: true
-            };
+            let url: string = this.baseURL + "/users/show.json";
+            let options: request.RequestPromiseOptions = this.requestOptions;
+            options.qs.include_user_entities = true;
 
             let response: TwitterUser = await request(url, options);
 
@@ -48,7 +50,7 @@ module Route {
               following_count: response.friends_count,
               statuses_count: response.statuses_count,
               profile_background_color: response.profile_background_color,
-              profile_image_url: response.profile_image_url_https.replace('_normal', '_400x400'),
+              profile_image_url: response.profile_image_url_https.replace("_normal", "_400x400"),
               profile_banner_url: response.profile_banner_url,
             };
 
@@ -64,7 +66,7 @@ module Route {
     }
 
     public async followers(_req: express.Request, res: express.Response, next: express.NextFunction) {
-      let redisKey: string = `${this.redisPrefix}:${this.account}:followers`;
+      let redisKey: string = this.redisPrefix + ":" + this.account + ":followers";
       redisClient.get(redisKey, async (err, followers) => {
         try {
           if (err) next(err);
@@ -73,20 +75,12 @@ module Route {
             res.json(JSON.parse(followers));
           }
           else {
-            let url: string = this.baseURL + '/followers/list.json';
-            let options: request.RequestPromiseOptions = {
-              headers: {
-                'Authorization': `Bearer ${process.env.TWITTER_BEARER_TOKEN}`
-              },
-              qs: {
-                screen_name: this.account,
-                cursor: -1,
-                count: 200,
-                skip_status: true,
-                include_user_entities: false
-              },
-              json: true
-            };
+            let url: string = this.baseURL + "/followers/list.json";
+            let options: request.RequestPromiseOptions = this.requestOptions;
+            options.qs.cursor = -1;
+            options.qs.count = 200;
+            options.qs.skip_status = true;
+            options.qs.include_user_entities = false;
 
             let response: Followers = await request(url, options);
 
@@ -102,7 +96,7 @@ module Route {
                 following_count: user.friends_count,
                 statuses_count: user.statuses_count,
                 profile_background_color: user.profile_background_color,
-                profile_image_url: user.profile_image_url_https.replace('_normal', '_400x400'),
+                profile_image_url: user.profile_image_url_https.replace("_normal", "_400x400"),
                 profile_banner_url: user.profile_banner_url,
               }
             });
