@@ -22,7 +22,7 @@ module Route {
      * @todo Return Discord user details along the Patrons object.
      */
     public async patrons(_req: express.Request, res: express.Response, next: express.NextFunction) {
-      let redisKey: string = `${this.redisPrefix}:${this.campaign}:patrons`;
+      let redisKey: string = this.redisPrefix + ":" + this.campaign + ":patrons";
 
       redisClient.get(redisKey, async (err, patrons) => {
         try {
@@ -32,16 +32,16 @@ module Route {
             res.json(JSON.parse(patrons));
           }
           else {
-            let url: string = 'https://www.patreon.com/api/oauth2/v2/campaigns/754397/members';
+            let url: string = "https://www.patreon.com/api/oauth2/v2/campaigns/754397/members";
             let options: request.RequestPromiseOptions = {
               headers: {
-                Authorization: `Bearer ${process.env.PATREON_ACCESS_TOKEN}`
+                Authorization: "Bearer " + process.env.PATREON_ACCESS_TOKEN,
               },
               qs: {
-                include: 'user',
-                'fields[member]': 'will_pay_amount_cents,pledge_relationship_start,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,currently_entitled_amount_cents,patron_status',
-                'fields[user]': 'image_url,vanity',
-                // 'fields[user]': 'vanity,image_url,social_connections',
+                include: "user",
+                "fields[member]": "will_pay_amount_cents,pledge_relationship_start,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,currently_entitled_amount_cents,patron_status",
+                "fields[user]": "image_url,vanity",
+                // "fields[user]": "vanity,image_url,social_connections",
               },
               json: true,
             };
