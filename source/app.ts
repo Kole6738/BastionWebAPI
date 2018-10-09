@@ -5,6 +5,7 @@ import * as express from "express";
 import * as logger from "morgan";
 import * as dotenv from "dotenv";
 
+import * as ChatRoute from "./routes/v1/chat";
 import * as IndexRoute from "./routes/v1";
 import * as PatreonRouter from "./routes/v1/patreon";
 import * as PayPalRouter from "./routes/v1/paypal";
@@ -80,6 +81,7 @@ class Server {
     router = express.Router();
 
     // Create routes
+    const Chat: ChatRoute.Chat = new ChatRoute.Chat();
     const Index: IndexRoute.Index = new IndexRoute.Index();
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
     const Patreon: PatreonRouter.Patreon = new PatreonRouter.Patreon();
@@ -87,6 +89,7 @@ class Server {
 
     // Routes
     router.get("/", Index.main.bind(Index));
+    router.get("/chat", Chat.main.bind(Chat));
     router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
     router.get("/paypal/donors", PayPal.donors.bind(PayPal));
     router.get("/twitter", Twitter.main.bind(Twitter));
