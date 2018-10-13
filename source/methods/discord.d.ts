@@ -10,3 +10,17 @@ interface DiscordUser {
   readonly tag: string,
   readonly avatar: string,
 }
+
+/**
+ * Interface for the Guild object returned by Discord API.
+ *
+ * @interface DiscordGuild
+ */
+interface DiscordGuild {
+  readonly id: string,
+  readonly name: string,
+  readonly icon: string | null,
+  readonly splash: string | null,
+  readonly owner_id: string,
+  readonly region: string,
+}
