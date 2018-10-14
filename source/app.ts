@@ -7,6 +7,7 @@ import * as dotenv from "dotenv";
 
 import * as ChatRoute from "./routes/v1/chat";
 import * as IndexRoute from "./routes/v1";
+import * as InfoRoute from "./routes/v1/info";
 import * as PatreonRouter from "./routes/v1/patreon";
 import * as PayPalRouter from "./routes/v1/paypal";
 import * as TwitterRouter from "./routes/v1/twitter";
@@ -83,6 +84,7 @@ class Server {
     // Create routes
     const Chat: ChatRoute.Chat = new ChatRoute.Chat();
     const Index: IndexRoute.Index = new IndexRoute.Index();
+    const Info: InfoRoute.Info = new InfoRoute.Info();
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
     const Patreon: PatreonRouter.Patreon = new PatreonRouter.Patreon();
     const PayPal: PayPalRouter.PayPal = new PayPalRouter.PayPal();
@@ -90,6 +92,7 @@ class Server {
     // Routes
     router.get("/", Index.main.bind(Index));
     router.get("/chat", Chat.main.bind(Chat));
+    router.get("/info/guild", Info.guild.bind(Info));
     router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
     router.get("/paypal/donors", PayPal.donors.bind(PayPal));
     router.get("/twitter", Twitter.main.bind(Twitter));
