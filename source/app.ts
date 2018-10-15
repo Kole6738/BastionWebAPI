@@ -6,6 +6,7 @@ import * as logger from "morgan";
 import * as dotenv from "dotenv";
 
 import * as ChatRoute from "./routes/v1/chat";
+import * as GitHubRoute from "./routes/v1/github";
 import * as IndexRoute from "./routes/v1";
 import * as InfoRoute from "./routes/v1/info";
 import * as PatreonRouter from "./routes/v1/patreon";
@@ -83,6 +84,7 @@ class Server {
 
     // Create routes
     const Chat: ChatRoute.Chat = new ChatRoute.Chat();
+    const GitHub: GitHubRoute.GitHub = new GitHubRoute.GitHub();
     const Index: IndexRoute.Index = new IndexRoute.Index();
     const Info: InfoRoute.Info = new InfoRoute.Info();
     const Twitter: TwitterRouter.Twitter = new TwitterRouter.Twitter();
@@ -92,6 +94,8 @@ class Server {
     // Routes
     router.get("/", Index.main.bind(Index));
     router.get("/chat", Chat.main.bind(Chat));
+    router.get("/github/contributors", GitHub.contributors.bind(GitHub));
+    router.get("/github/repos", GitHub.repos.bind(GitHub));
     router.get("/info/guild", Info.guild.bind(Info));
     router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
     router.get("/paypal/donors", PayPal.donors.bind(PayPal));
