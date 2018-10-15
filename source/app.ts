@@ -96,6 +96,7 @@ class Server {
     router.get("/chat", Chat.main.bind(Chat));
     router.get("/github/contributors", GitHub.contributors.bind(GitHub));
     router.get("/github/repos", GitHub.repos.bind(GitHub));
+    router.get("/info/commands", Info.commands.bind(Info));
     router.get("/info/guild", Info.guild.bind(Info));
     router.get("/patreon/patrons", Patreon.patrons.bind(Patreon));
     router.get("/paypal/donors", PayPal.donors.bind(PayPal));
