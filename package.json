@@ -10,8 +10,8 @@
   "private": true,
   "scripts": {
     "gulp:clean": "gulp clean",
-    "gulp:transpile": "gulp compile",
-    "build": "yarn gulp:clean && yarn gulp:transpile",
+    "transpile": "tsc",
+    "build": "yarn gulp:clean && yarn transpile",
     "start": "yarn build && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
